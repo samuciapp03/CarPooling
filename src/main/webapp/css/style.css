@@ -1,0 +1,253 @@
+:root {
+    --myPurple: rgb(97, 95, 133);
+    --myBlue: rgb(60, 79, 131);
+    --myYellow: rgb(250, 233, 185);
+    --myOrange: rgb(212, 166, 102);
+}
+
+.bg-image {
+    background-image: url("https://wallpaperaccess.com/full/1686771.jpg");
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.navbar {
+    margin: 0px 25px 0px 25px;
+    border-radius: 20px;
+    background-color: var(--myPurple) !important;
+}
+
+.nav-link {
+    padding: 2px;
+}
+
+.profileImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+}
+
+@media (min-width: 992px) {
+    .profileIcon {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    .nav-link {
+        padding: 10px;
+    }
+}
+
+.dropdown-menu {
+    background-color: var(--myPurple) !important;
+}
+
+.dropdown-item {
+    color: rgba(255, 255, 255, .75);
+}
+
+.dropdown-item:hover {
+    color: #fff;
+    background-color: var(--myBlue);
+}
+
+.glossy {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.animated-text {
+    color: rgb(97, 95, 133);
+    opacity: 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    font-family: Pacifico;
+    font-size: 100px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600;
+    transform: translate(0, -10px)
+}
+
+.b1 {
+    animation: ani1 15s infinite;
+}
+
+.b2 {
+    animation: ani2 15s infinite;
+}
+
+.b3 {
+    animation: ani3 15s infinite;
+}
+
+@keyframes ani1 {
+    0% {
+        opacity: 0;
+    }
+
+    16.65% {
+        opacity: 1;
+    }
+
+    33.3% {
+        opacity: 0;
+    }
+}
+
+@keyframes ani2 {
+    33.3% {
+        opacity: 0;
+    }
+
+    49.95% {
+        opacity: 1;
+    }
+
+    66.6% {
+        opacity: 0;
+    }
+}
+
+@keyframes ani3 {
+    66.6% {
+        opacity: 0;
+    }
+
+    83.25% {
+        opacity: 1;
+    }
+
+    99.9% {
+        opacity: 0;
+    }
+}
+
+.hide {
+    display: none;
+}
+
+.btn-primary {
+    background-color: var(--myPurple);
+    border-color: var(--myPurple);
+}
+
+i {
+    cursor: pointer;
+    margin-left: -50px;
+}
+
+.height {
+    height: 100vh;
+    width: 100%;
+}
+
+.height.righe {
+    height: 45vh;
+}
+
+.overflow-auto.cont {
+    height: 100vh !important;
+}
+
+.overflow-auto.reg {
+    height: 50vh;
+}
+
+.overflow-auto.home {
+    height: 30vh;
+}
+
+@media (max-width: 991px) {
+    .height {
+        height: 45vh;
+    }
+
+    .animated-text {
+        color: var(--myOrange);
+    }
+
+    .overflow-auto.reg {
+        height: 30vh;
+    }
+}
+
+.homeDiv {
+    -webkit-border-radius: 15px 15px 15px 15px;
+    border-radius: 15px;
+    padding: 5px;
+    width: 90%;
+    position: relative;
+    padding: 0px;
+    -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13px);
+    -webkit-backdrop-filter: blur(13px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.homeDiv > .cont {
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    display: inline-block;
+    margin: 5px;
+    width: 85%;
+    max-height: 25vh;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
+
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(13px);
+    -webkit-backdrop-filter: blur(13px);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+.search-slt {
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: #55595c;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0;
+}
+
+.wrn-btn {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    text-transform: capitalize;
+    height: calc(3rem + 2px) !important;
+    border-radius: 0;
+}
+
+@media (max-width: 992px) {
+    .search-sec {
+        background: #1A4668;
+    }
+}
+
+.fa, .fas {
+    transform: translateX(25px);
+}
