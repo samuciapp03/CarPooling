@@ -21,10 +21,6 @@
 
     Functions f = new Functions();
 
-    String departure = null;
-    String destination = null;
-    String date = null;
-
     int id = 0;
     String img = "";
     String sql = "SELECT idUtente, img FROM utenti WHERE username = '" + session.getAttribute("username") + "'";
@@ -42,28 +38,6 @@
     sql = "UPDATE viaggi v INNER JOIN prenotazioni p ON v.idViaggio=p.idViaggio SET p.stato='u' WHERE p.stato='y' AND v.completato='y'";
     prprstmt = cn.prepareStatement(sql);
     row = prprstmt.executeUpdate();
-
-    sql = "SELECT * FROM comuni WHERE name='" + request.getParameter("departure") + "'";
-    rs = stmt.executeQuery(sql);
-
-    if (rs.next()) {
-        departure = request.getParameter("departure");
-    } else {
-        response.sendRedirect("index.jsp");
-        return;
-    }
-
-    sql = "SELECT * FROM comuni WHERE name='" + request.getParameter("destination") + "'";
-    rs = stmt.executeQuery(sql);
-
-    if (rs.next()) {
-        destination = request.getParameter("destination");
-    } else {
-        response.sendRedirect("index.jsp");
-        return;
-    }
-
-    date = request.getParameter("date");
 %>
 <html>
 <head>
@@ -110,7 +84,7 @@
                                 <a class="nav-link" href="grades.jsp"> Grades </a>
                             </li>
                             <li class="nav-item d-flex align-items-center">
-                                <a class="nav-link" href="allTrips.jsp"> Other trips </a>
+                                <a class="nav-link" href="#"> Other trips </a>
                             </li>
                         </ul>
                         <ul class="navbar-nav ms-auto">
@@ -158,19 +132,18 @@
                         <div class="col-lg p-1">
                             <div class="d-flex justify-content-center" style="align-items: center;">
                                 <input type="text" list="cities1" id="departure" name="departure"
-                                       placeholder="Departure" onkeyup="mostra(this.value,'1')" value="<%=departure%>"/>
+                                       placeholder="Departure" onkeyup="mostra(this.value,'1')"/>
                             </div>
                         </div>
                         <div class="col-lg p-1">
                             <div class="d-flex justify-content-center" style="align-items: center;">
                                 <input type="text" list="cities2" id="destination" name="destination"
-                                       placeholder="Destination" onkeyup="mostra(this.value,'2')"
-                                       value="<%=destination%>"/>
+                                       placeholder="Destination" onkeyup="mostra(this.value,'2')"/>
                             </div>
                         </div>
                         <div class="col-lg p-1">
                             <div class="d-flex justify-content-center" style="align-items: center;">
-                                <input type="date" name="date" id="date" value="<%=date%>"/>
+                                <input type="date" name="date" id="date"/>
                             </div>
                         </div>
                         <div class="col-lg p-1">
@@ -197,22 +170,16 @@
                                 class="fadeIn first"
                                 style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
                         >
-                            Trips available
+                            Some other trips
                         </h1>
                         <div class="cont overflow-auto cont">
                             <%
-                                if (!date.equals("")) {
-                                    sql = "SELECT u.username,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.partenza='" + departure + "' AND v.arrivo='" + destination + "' AND v.dataInizio='" + date + "' AND v.dataInizio>'" + dtf.format(now) + "' AND v.nPasseggeri>0 AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "'))";
-                                } else {
-                                    sql = "SELECT u.username,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.partenza='" + departure + "' AND v.arrivo='" + destination + "' AND v.nPasseggeri>0 AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "'))";
-                                }
+                                sql = "SELECT u.username,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.dataInizio>'" + dtf.format(now) + "' AND v.nPasseggeri>0 AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')) ORDER BY v.dataInizio ASC LIMIT 10";
                                 rs = stmt.executeQuery(sql);
-
                                 if (!rs.next()) {
-                                    out.write("<div class=\"container d-flex justify-content-center\">There are no trips that corresponding to your needs</div>");
+                                    out.write("<div class=\"container d-flex justify-content-center\">There are no available trips</div>");
                                 } else {
                             %>
-
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -247,88 +214,6 @@
                                                     src="../../img/open.webp" class="cursor"
                                                     style="height: 15px; width: 15px;margin-top: 2px"
                                                     onclick='showModal("From <%=rs.getString("partenza")%> to <%=rs.getString("arrivo")%>",
-                                                            "<%=rs.getString("cognome")%> <%=rs.getString("u.nome")%>",
-                                                            "<%=rs.getString("dataInizio")%>",
-                                                            "<%=rs.getString("oraPartenza")%>",
-                                                            "<%=rs.getString("durata") + "h"%>",
-                                                            "<%=rs.getString("marca")%> <%=rs.getString("modello")%>",
-                                                            "<%=rs.getString("contributo")%> €",
-                                                            "<%=rs.getString("animali")%>",
-                                                            "<%=rs.getString("bagagli")%>",
-                                                            "<%=rs.getString("sosta")%>",
-                                                            "<%=rs.getString("fermata1")%>",
-                                                            "<%=rs.getString("fermata2")%>",
-                                                            "<%=rs.getString("idViaggio")%>")'
-                                            /></a>
-                                        </td>
-                                        <input type="text" style="display: none" name="idViaggio"
-                                               id="idViaggio"/>
-                                    </tr>
-                                    <% }
-                                    }%>
-                                </form>
-                                </tbody>
-                            </table>
-                            <br/>
-                        </div>
-                        <br/><br/>
-                    </div>
-                </div>
-            </div>
-            <div class="height righe">
-                <div class="wrapper fadeInDown">
-                    <div class="homeDiv">
-                        <br/>
-                        <h1
-                                class="fadeIn first"
-                                style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
-                        >
-                            Some other trips
-                        </h1>
-                        <div class="cont overflow-auto cont">
-                            <%
-                                sql = "SELECT u.username,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.dataInizio>'" + dtf.format(now) + "' AND v.nPasseggeri>0 AND (v.partenza ='" + departure + "' OR v.arrivo='" + destination + "' OR v.dataInizio='" + date + "') AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')) ORDER BY v.dataInizio ASC";
-                                rs = stmt.executeQuery(sql);
-
-                                if (!rs.next()) {
-                                    out.write("<div class=\"container d-flex justify-content-center\">There are no available trips</div>");
-                                } else {
-                            %>
-
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col" style="text-align: center">Driver</th>
-                                    <th scope="col" style="text-align: center">Day - Time</th>
-                                    <th scope="col" style="text-align: center">Duration</th>
-                                    <th scope="col" style="text-align: center">From</th>
-                                    <th scope="col" style="text-align: center">To</th>
-                                    <th scope="col" style="text-align: center">Open</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <form method="post" action="prenotazioneViaggio.jsp" id="formViaggioAltro">
-                                    <%
-                                        rs.beforeFirst();
-                                        while (rs.next()) {
-                                    %>
-                                    <tr>
-                                        <th scope="row"
-                                            class="d-flex justify-content-center"><%=rs.getString("cognome")%> <%=rs.getString("u.nome")%>
-                                        </th>
-                                        <td style="text-align: center"><%=rs.getString("dataInizio") + " " + rs.getString("oraPartenza")%>
-                                        </td>
-                                        <td style="text-align: center"><%=rs.getString("durata") + "h"%>
-                                        </td>
-                                        <td style="text-align: center"><%=rs.getString("partenza")%>
-                                        </td>
-                                        <td style="text-align: center"><%=rs.getString("arrivo")%>
-                                        </td>
-                                        <td style="text-align: center">
-                                            <a data-toggle="modal" data-target="#modalDiv"><img
-                                                    src="../../img/open.webp" class="cursor"
-                                                    style="height: 15px; width: 15px;margin-top: 2px"
-                                                    onclick='showModalAltro("From <%=rs.getString("partenza")%> to <%=rs.getString("arrivo")%>",
                                                             "<%=rs.getString("cognome")%> <%=rs.getString("u.nome")%>",
                                                             "<%=rs.getString("dataInizio")%>",
                                                             "<%=rs.getString("oraPartenza")%>",
@@ -420,7 +305,8 @@
                         >
                             Close
                         </button>
-                        <button type="button" class="btn btn-primary" id="buttonSubmitModal">
+                        <button type="button" class="btn btn-primary"
+                                onclick='document.getElementById("formViaggio").submit();'>
                             Book
                         </button>
                     </div>
@@ -464,45 +350,7 @@
                     document.getElementById("stopsModal").innerText = "Non consentiti";
 
                 document.getElementById("idViaggio").value = idViaggio;
-                document.getElementById("buttonSubmitModal").onclick = document.getElementById("formViaggio").submit();
-            }
 
-            function showModalAltro(title, driv, day, time, dur, car, eco, anim, baga, stops, stop1, stop2, idViaggio) {
-                document.getElementById("modalLabel").innerText = title;
-                document.getElementById("drivModal").innerText = driv;
-                document.getElementById("dayModal").innerText = day;
-                document.getElementById("timeModal").innerText = time;
-                document.getElementById("durModal").innerText = dur;
-                document.getElementById("carModal").innerText = car;
-                document.getElementById("ecoModal").innerText = eco;
-
-                if (anim === "y")
-                    document.getElementById("animModal").innerText = "Consentiti";
-                else
-                    document.getElementById("animModal").innerText = "Non consentiti";
-
-                if (baga === "y")
-                    document.getElementById("bagaModal").innerText = "Consentiti";
-                else
-                    document.getElementById("bagaModal").innerText = "Non consentiti";
-
-                if (stops === "y") {
-                    document.getElementById("stopsModal").innerText = "Consentiti"
-
-                    if (stop1 != "") {
-                        document.getElementById("stop1Modal").innerText = "Stop 1: " + stop1;
-                        document.getElementById("stop1Modal").style.display = "block";
-                    }
-
-                    if (stop2 != "") {
-                        document.getElementById("stop2Modal").innerText = "Stop 2: " + stop2;
-                        document.getElementById("stop2Modal").style.display = "block";
-                    }
-                } else
-                    document.getElementById("stopsModal").innerText = "Non consentiti";
-
-                document.getElementById("idViaggio").value = idViaggio;
-                document.getElementById("buttonSubmitModal").onclick = document.getElementById("formViaggioAltro").submit();
             }
         </script>
     </div>
@@ -532,4 +380,3 @@
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 </body>
 </html>
-

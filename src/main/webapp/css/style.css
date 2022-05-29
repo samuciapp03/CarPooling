@@ -251,3 +251,8 @@ i {
 .fa, .fas {
     transform: translateX(25px);
 }
+
+.row {
+    width: 100%;
+    margin: 0px !important;
+}

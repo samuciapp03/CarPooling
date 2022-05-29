@@ -35,7 +35,7 @@
 <div class="bg-image">
     <div class="overflow-auto cont">
         <div class="container">
-            <div class="row gy-5">
+            <div class="row gy-5 ">
                 <div class="col-lg d-flex justify-content-center align-items-center fadeIn third height">
                     <div class="animated-text b1">Travel</div>
                     <div class="animated-text b2">Share</div>

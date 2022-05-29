@@ -42,31 +42,9 @@
 <html>
 <head>
     <script>
-        function mostra(str, id) {
-            if (str.length == 0) {
-                document.getElementById("risposta" + id).innerHTML = "";
-                return;
-            }
-
-            if (window.XMLHttpRequest) {
-                ajax = new XMLHttpRequest();
-            } else {
-                ajax = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-
-            ajax.onreadystatechange = function () {
-                if (ajax.readyState == 4 && ajax.status == 200) {
-                    document.getElementById("risposta" + id).innerHTML = ajax.responseText;
-                }
-            }
-            ajax.open("POST", "../ricercaComuni.jsp?str=" + str, true);
-
-            ajax.send();
-        }
-
-        function del(btn) {
+        function grade(btn) {
             const a = btn.id;
-            document.location.href = "deleteBooking.jsp?id=" + a;
+            document.location.href = "gradeAutista.jsp?id=" + a;
         }
     </script>
     <!-- Required meta tags -->
@@ -94,7 +72,7 @@
             <br/>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Car Pooling</a>
+                    <a class="navbar-brand" href="index.jsp">Car Pooling</a>
                     <button
                             class="navbar-toggler"
                             type="button"
@@ -106,10 +84,10 @@
                     <div class="collapse navbar-collapse" id="main_nav">
                         <ul class="navbar-nav">
                             <li class="nav-item d-flex align-items-center">
-                                <a class="nav-link" href="#"> Your trips </a>
+                                <a class="nav-link" href="index.jsp"> Your trips </a>
                             </li>
                             <li class="nav-item d-flex align-items-center">
-                                <a class="nav-link" href="grades.jsp"> Grades </a>
+                                <a class="nav-link" href="#"> Grades </a>
                             </li>
                             <li class="nav-item d-flex align-items-center">
                                 <a class="nav-link" href="allTrips.jsp"> Other trips </a>
@@ -154,43 +132,7 @@
         </header>
         <br>
         <div class="row">
-            <div class="container fadeInDown" style="width: 80%">
-                <form action="ricercaViaggi.jsp" method="post">
-                    <div class="row p-2" style="background-color: var(--myPurple); border-radius: 25px">
-                        <div class="col-lg p-1">
-                            <div class="d-flex justify-content-center" style="align-items: center;">
-                                <input type="text" list="cities1" id="departure" name="departure"
-                                       placeholder="Departure" onkeyup="mostra(this.value,'1')"/>
-                            </div>
-                        </div>
-                        <div class="col-lg p-1">
-                            <div class="d-flex justify-content-center" style="align-items: center;">
-                                <input type="text" list="cities2" id="destination" name="destination"
-                                       placeholder="Destination" onkeyup="mostra(this.value,'2')"/>
-                            </div>
-                        </div>
-                        <div class="col-lg p-1">
-                            <div class="d-flex justify-content-center" style="align-items: center;">
-                                <input type="date" name="date" id="date"/>
-                            </div>
-                        </div>
-                        <div class="col-lg p-1">
-                            <div class="d-flex justify-content-center" style="align-items: center; height: 100%;">
-                                <input type="submit" value="Search trip"
-                                       style="background-color: var(--myOrange); margin: 5px;"/>
-                            </div>
-                        </div>
-                    </div>
-
-                    <datalist id="cities1">
-                        <option id="risposta1"></option>
-                    </datalist>
-                    <datalist id="cities2">
-                        <option id="risposta2"></option>
-                    </datalist>
-                </form>
-            </div>
-            <div class="height righe" id="nexttrips">
+            <div class="height righe" id="gradethetrips">
                 <div class="wrapper fadeInDown">
                     <div class="homeDiv">
                         <br/>
@@ -198,23 +140,23 @@
                                 class="fadeIn first"
                                 style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
                         >
-                            Your accepted bookings for your next trips
+                            Grade the trips you took part in
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM (prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio) INNER JOIN utenti u ON p.idUtente = u.idUtente WHERE p.idUtente = " + id + " AND v.completato='n' AND p.stato='y' ORDER BY v.dataInizio ASC";
+                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE p.idUtente = " + id + " AND v.completato='y' AND p.stato='u' ORDER BY v.dataInizio DESC";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
-                                    out.write("<div class=\"container d-flex justify-content-center\">You have no trips</div>");
+                                    out.write("<div class=\"container d-flex justify-content-center\">You did no trips</div>");
                                 } else {
                             %>
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col" style="text-align: center">Cancel</th>
-                                    <th scope="col" style="text-align: center">Departure</th>
-                                    <th scope="col" style="text-align: center">Destination</th>
-                                    <th scope="col" style="text-align: center">Date and Time</th>
+                                    <th scope="col" style="text-align: center">Driver</th>
+                                    <th scope="col" style="text-align: center">Trip</th>
+                                    <th scope="col" style="text-align: center">Date</th>
+                                    <th scope="col" style="text-align: center">Grade</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -226,17 +168,18 @@
 
                                     <th scope="row"
                                         class="d-flex justify-content-center">
-                                        <button type="button" id="<%=rs.getString("idPrenotazione")%>"
-                                                onclick="del(this)"
-                                                style="background: none;padding: 0px;border: none">
-                                            <i class="fas fa-trash" style="font-size:24px;color:red"></i>
-                                        </button>
+                                        <%=rs.getString("cognome") + " " + rs.getString("nome")%>
                                     </th>
-                                    <td style="text-align: center"><%=rs.getString("partenza")%>
+                                    <td style="text-align: center"><%=rs.getString("partenza") + " - " + rs.getString("arrivo")%>
                                     </td>
-                                    <td style="text-align: center"><%=rs.getString("arrivo")%>
+                                    <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio"))%>
                                     </td>
-                                    <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio")) + " " + rs.getString("oraPartenza")%>
+                                    <td style="text-align: center">
+                                        <button type="button" id="<%=rs.getString("idViaggio")%>"
+                                                onclick="grade(this)"
+                                                style="background: none;padding: 0px;border: none">
+                                            <i class="fas fa-vote-yea" style="font-size:24px;color:darkgoldenrod"></i>
+                                        </button>
                                     </td>
                                 </tr>
                                 <% }
@@ -249,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div class="height righe" id="lasttrips">
+            <div class="height righe" id="yourgrades">
                 <div class="wrapper fadeInDown">
                     <div class="homeDiv">
                         <br/>
@@ -257,23 +200,23 @@
                                 class="fadeIn first"
                                 style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
                         >
-                            Your Last Trips
+                            Your ratings given by the drivers of your trips
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE p.idUtente = " + id + " AND p.stato='r' ORDER BY v.dataInizio DESC LIMIT 5";
+                                sql = "SELECT * FROM ((viaggi v INNER JOIN prenotazioni p ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE p.idUtente = " + id + " AND p.valutato='y' ORDER BY v.dataInizio DESC LIMIT 5";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
-                                    out.write("<div class=\"container d-flex justify-content-center\">You did no trips</div>");
+                                    out.write("<div class=\"container d-flex justify-content-center\">You have no ratings</div>");
                                 } else {
                             %>
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th scope="col" style="text-align: center">Departure</th>
-                                    <th scope="col" style="text-align: center">Destination</th>
-                                    <th scope="col" style="text-align: center">Date</th>
                                     <th scope="col" style="text-align: center">Driver</th>
+                                    <th scope="col" style="text-align: center">Trip</th>
+                                    <th scope="col" style="text-align: center">Grade</th>
+                                    <th scope="col" style="text-align: center">Review</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -285,13 +228,13 @@
 
                                     <th scope="row"
                                         class="d-flex justify-content-center">
-                                        <%=rs.getString("partenza")%>
+                                        <%=rs.getString("cognome") + " " + rs.getString("nome")%>
                                     </th>
-                                    <td style="text-align: center"><%=rs.getString("arrivo")%>
+                                    <td style="text-align: center"><%=rs.getString("partenza") + "-" + rs.getString("arrivo") + " in data " + f.renderDate(rs.getString("dataInizio"))%>
                                     </td>
-                                    <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio"))%>
+                                    <td style="text-align: center"><%=rs.getString("votazioneA")%>
                                     </td>
-                                    <td style="text-align: center"><%=rs.getString("marca") + " " + rs.getString("modello")%>
+                                    <td style="text-align: center"><%=rs.getString("feedback")%>
                                     </td>
                                 </tr>
                                 <% }
