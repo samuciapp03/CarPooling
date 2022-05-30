@@ -252,6 +252,19 @@ i {
     transform: translateX(25px);
 }
 
+.fa-star {
+    transform: translateX(0px);
+    color: white;
+}
+
+.fa-star:hover {
+    color: orange !important;
+}
+
+.checked {
+    color: orange !important;
+}
+
 .row {
     width: 100%;
     margin: 0px !important;

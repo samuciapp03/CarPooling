@@ -131,6 +131,10 @@ input[type=reset]:active,
     transform: scale(0.95);
 }
 
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
 input[type=text],
 input[type=number],
 input[type=password],
