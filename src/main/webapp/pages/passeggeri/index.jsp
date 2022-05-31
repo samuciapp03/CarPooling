@@ -64,9 +64,14 @@
             ajax.send();
         }
 
-        function del(btn) {
+        function del1(btn) {
             const a = btn.id;
-            document.location.href = "deleteBooking.jsp?id=" + a;
+            document.location.href = "deleteBooking.jsp?id=" + a + "&add=n";
+        }
+
+        function del2(btn) {
+            const a = btn.id;
+            document.location.href = "deleteBooking.jsp?id=" + a + "&add=y";
         }
     </script>
     <!-- Required meta tags -->
@@ -190,6 +195,65 @@
                     </datalist>
                 </form>
             </div>
+            <div class="height righe" id="pendingBookings">
+                <div class="wrapper fadeInDown">
+                    <div class="homeDiv">
+                        <br/>
+                        <h1
+                                class="fadeIn first"
+                                style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
+                        >
+                            Your pending bookings
+                        </h1>
+                        <div class="cont overflow-auto home">
+                            <%
+                                sql = "SELECT * FROM (prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio) INNER JOIN utenti u ON p.idUtente = u.idUtente WHERE p.idUtente = " + id + " AND v.completato='n' AND p.stato='?' ORDER BY v.dataInizio ASC";
+                                rs = stmt.executeQuery(sql);
+                                if (!rs.next()) {
+                                    out.write("<div class=\"container d-flex justify-content-center\">You have no pending bookings</div>");
+                                } else {
+                            %>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="text-align: center">Cancel</th>
+                                    <th scope="col" style="text-align: center">Departure</th>
+                                    <th scope="col" style="text-align: center">Destination</th>
+                                    <th scope="col" style="text-align: center">Date and Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    rs.beforeFirst();
+                                    while (rs.next()) {
+                                %>
+                                <tr>
+
+                                    <th scope="row"
+                                        class="d-flex justify-content-center">
+                                        <button type="button" id="<%=rs.getString("idPrenotazione")%>"
+                                                onclick="del1(this)"
+                                                style="background: none;padding: 0px;border: none">
+                                            <i class="fas fa-trash" style="font-size:24px;color:red"></i>
+                                        </button>
+                                    </th>
+                                    <td style="text-align: center"><%=rs.getString("partenza")%>
+                                    </td>
+                                    <td style="text-align: center"><%=rs.getString("arrivo")%>
+                                    </td>
+                                    <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio")) + " " + rs.getString("oraPartenza")%>
+                                    </td>
+                                </tr>
+                                <% }
+                                }%>
+                                </tbody>
+                            </table>
+                            <br/>
+                        </div>
+                        <br/><br/>
+                    </div>
+                </div>
+            </div>
             <div class="height righe" id="nexttrips">
                 <div class="wrapper fadeInDown">
                     <div class="homeDiv">
@@ -227,7 +291,7 @@
                                     <th scope="row"
                                         class="d-flex justify-content-center">
                                         <button type="button" id="<%=rs.getString("idPrenotazione")%>"
-                                                onclick="del(this)"
+                                                onclick="del2(this)"
                                                 style="background: none;padding: 0px;border: none">
                                             <i class="fas fa-trash" style="font-size:24px;color:red"></i>
                                         </button>
