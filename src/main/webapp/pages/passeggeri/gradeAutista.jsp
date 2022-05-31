@@ -19,6 +19,7 @@
     Functions f = new Functions();
 
     String idViaggio = request.getParameter("id");
+    session.setAttribute("idViaggio", idViaggio);
 
     int id = 0;
     String sql = "SELECT idUtente FROM utenti WHERE username = '" + session.getAttribute("username") + "'";

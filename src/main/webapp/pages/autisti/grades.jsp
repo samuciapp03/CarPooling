@@ -110,7 +110,7 @@
                                    style="color: white;transform: translateX(0px) !important;"
                                    onclick="window.location.href='tripAccept.jsp'">
                                     <%
-                                        sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile = a.idAutomobile) INNER JOIN utenti u ON p.idUtente = u.idUtente WHERE p.stato='u' AND a.idUtente=" + id + " ORDER BY v.dataInizio ASC";
+                                        sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile = a.idAutomobile) INNER JOIN utenti u ON p.idUtente = u.idUtente WHERE p.stato='?' AND a.idUtente=" + id + " ORDER BY v.dataInizio ASC";
                                         rs = stmt.executeQuery(sql);
                                         if (rs.next()) {
                                             out.write(" " + (rs.getFetchSize() + 1));
@@ -169,7 +169,7 @@
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON u.idUtente=p.idUtente WHERE a.idUtente = " + id + " AND v.completato='y' AND p.valutato='n' ORDER BY v.dataInizio DESC";
+                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON u.idUtente=p.idUtente WHERE a.idUtente = " + id + " AND v.completato='y' AND p.stato='u' ORDER BY v.dataInizio DESC";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">You did no trips</div>");
@@ -228,7 +228,7 @@
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM ((viaggi vi INNER JOIN votazioniP vp ON vi.idViaggio = vp.idViaggio) INNER JOIN automobili a ON vi.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON vp.idPasseggero=u.idUtente WHERE a.idUtente = " + id + " ORDER BY vi.dataInizio DESC LIMIT 10";
+                                sql = "SELECT * FROM ((viaggi vi INNER JOIN votazioniP vp ON vi.idViaggio = vp.idViaggio) INNER JOIN automobili a ON vi.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON vp.idPasseggero=u.idUtente WHERE a.idUtente = " + id + " ORDER BY vi.dataInizio DESC";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">You have no ratings</div>");

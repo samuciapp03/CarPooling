@@ -31,7 +31,7 @@
     int row = prprstmt.executeUpdate();
     if (row > 0) {
 
-        sql = "UPDATE viaggi v INNER JOIN prenotazioni p ON v.idViaggio=p.idViaggio SET p.stato='r' WHERE p.stato='u' AND v.completato='y' AND p.idViaggio='" + session.getAttribute("idViaggio") + "'";
+        sql = "UPDATE viaggi v INNER JOIN prenotazioni p ON v.idViaggio=p.idViaggio SET p.valutato='y' WHERE v.completato='y' AND p.idViaggio='" + session.getAttribute("idViaggio") + "' AND p.idUtente='" + id + "'";
         prprstmt = cn.prepareStatement(sql);
         row = prprstmt.executeUpdate();
 

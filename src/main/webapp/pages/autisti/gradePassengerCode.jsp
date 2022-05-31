@@ -27,7 +27,7 @@
     grade = request.getParameter("grade");
     review = request.getParameter("review");
 
-    sql = "UPDATE prenotazioni p SET p.valutato='y', p.votazioneA='" + grade + "', p.feedback='" + review + "' WHERE p.idUtente='" + session.getAttribute("idPasseggero") + "' AND p.idViaggio='" + session.getAttribute("idViaggio") + "'";
+    sql = "UPDATE prenotazioni p SET p.stato='r', p.votazioneA='" + grade + "', p.feedback='" + review + "' WHERE p.idUtente='" + session.getAttribute("idPasseggero") + "' AND p.idViaggio='" + session.getAttribute("idViaggio") + "'";
     prprstmt = cn.prepareStatement(sql);
     int row = prprstmt.executeUpdate();
 
