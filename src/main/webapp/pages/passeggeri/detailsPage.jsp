@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../database.jsp" %>
+<%@page import="com.example.carpooling.Functions" %>
 
 <%
     if (session.getAttribute("username").equals("")) {
@@ -14,6 +15,7 @@
         return;
     }
 
+    Functions f = new Functions();
     String img = "";
 %>
 <html>
@@ -102,6 +104,86 @@
             </nav>
         </header>
         <br>
+        <div class="height righe" id="nexttrips">
+            <div class="wrapper fadeInDown">
+                <div class="homeDiv">
+                    <br/>
+                    <h1
+                            class="fadeIn first"
+                            style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
+                    >
+                        Your personal details
+                    </h1>
+                    <div class="cont overflow-auto home">
+                        <%
+                            String sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
+                            ResultSet rs = stmt.executeQuery(sql);
+                            if (!rs.next()) {
+                                out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
+                            } else {
+                        %>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center">Field</th>
+                                <th scope="col" style="text-align: center">Your detail</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <%
+                                rs.beforeFirst();
+                                while (rs.next()) {
+                            %>
+                            <tr>
+                                <th style="text-align: center">Username
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("username")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Name and Surname
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("nome") + " " + rs.getString("cognome")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Date of birth
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=f.renderDate(rs.getString("dataNascita"))%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Email
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("email")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Telephone
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("tel")%>
+                                </td>
+                            </tr>
+                            <% }
+                            }%>
+                            </tbody>
+                        </table>
+                        <br/>
+                    </div>
+                    <br/><br/>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

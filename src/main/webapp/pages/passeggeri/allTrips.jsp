@@ -207,7 +207,7 @@
                                                   style="text-decoration-line: underline;"><%=rs.getString("cognome") + " " + rs.getString("u.nome")%>
                                             </text>
                                         </th>
-                                        <td style="text-align: center"><%=rs.getString("dataInizio") + " " + rs.getString("oraPartenza")%>
+                                        <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio")) + " " + rs.getString("oraPartenza")%>
                                         </td>
                                         <td style="text-align: center"><%=rs.getString("durata") + "h"%>
                                         </td>
