@@ -18,6 +18,7 @@
     Functions f = new Functions();
 
     String parameter = request.getParameter("id");
+    String add = request.getParameter("add");
 
     String cognome = null;
     String nome = null;
@@ -28,6 +29,7 @@
 
     String idViaggio = null;
     int nPasseggeri = 0;
+    int row = 0;
 
     ResultSet rs = null;
 
@@ -49,9 +51,11 @@
         nPasseggeri = rs.getInt("nPasseggeri") + 1;
     }
 
-    sql = "UPDATE viaggi SET nPasseggeri='" + nPasseggeri + "' WHERE idViaggio='" + idViaggio + "'";
-    prprstmt = cn.prepareStatement(sql);
-    int row = prprstmt.executeUpdate();
+    if (add.equals("y")) {
+        sql = "UPDATE viaggi SET nPasseggeri='" + nPasseggeri + "' WHERE idViaggio='" + idViaggio + "'";
+        prprstmt = cn.prepareStatement(sql);
+        row = prprstmt.executeUpdate();
+    }
 
     sql = "SELECT * FROM prenotazioni p INNER JOIN utenti u ON p.idUtente=u.idUtente WHERE p.idPrenotazione=" + parameter;
     rs = stmt.executeQuery(sql);
