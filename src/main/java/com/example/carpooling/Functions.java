@@ -80,44 +80,46 @@ public class Functions {
         String y = a[0];
         String m = a[1];
         String d = a[2];
-        String format = d + " ";
+        String format = "";
+
+        format = d + " ";
 
         switch (m) {
             case "01":
-                format = "Gennaio ";
+                format = format + "Gennaio ";
                 break;
             case "02":
-                format = "Febbraio ";
+                format = format + "Febbraio ";
                 break;
             case "03":
-                format = "Marzo ";
+                format = format + "Marzo ";
                 break;
             case "04":
-                format = "Aprile ";
+                format = format + "Aprile ";
                 break;
             case "05":
-                format = "Maggio ";
+                format = format + "Maggio ";
                 break;
             case "06":
-                format = "Giugno ";
+                format = format + "Giugno ";
                 break;
             case "07":
-                format = "Luglio ";
+                format = format + "Luglio ";
                 break;
             case "08":
-                format = "Agosto ";
+                format = format + "Agosto ";
                 break;
             case "09":
-                format = "Settembre ";
+                format = format + "Settembre ";
                 break;
             case "10":
-                format = "Ottobre ";
+                format = format + "Ottobre ";
                 break;
             case "11":
-                format = "Novembre ";
+                format = format + "Novembre ";
                 break;
             case "12":
-                format = "Dicembre ";
+                format = format + "Dicembre ";
                 break;
         }
 
