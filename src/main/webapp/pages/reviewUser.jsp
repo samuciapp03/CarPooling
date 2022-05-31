@@ -47,7 +47,7 @@
     }
 
 } else if (t.equals("aut")) {
-    sql = "SELECT * FROM ((votazioniP vp INNER JOIN viaggi vi ON vp.idViaggio = vi.idViaggio) INNER JOIN automobili a ON a.idAutomobile = vi.idAutomobile) INNER JOIN utenti u ON u.idUtente = a.idUtente WHERE u.idUtente='" + id + "'";
+    sql = "SELECT * FROM (((votazioniP vp INNER JOIN viaggi vi ON vp.idViaggio = vi.idViaggio) INNER JOIN utenti u1 ON u1.idUtente=vp.idPasseggero) INNER JOIN automobili a ON a.idAutomobile = vi.idAutomobile) INNER JOIN utenti u ON u.idUtente = a.idUtente WHERE u.idUtente='" + id + "'";
     rs = stmt.executeQuery(sql);
     if (!rs.next()) {
         out.println("There are no review for this user");
@@ -68,7 +68,7 @@
         }
     %>
 </div>
-<%="Review by " + rs.getString("cognome") + " " + rs.getString("nome") + ": "%>
+<%="Review by " + rs.getString("u1.cognome") + " " + rs.getString("u1.nome") + ": "%>
 <br>
 <%=rs.getString("descrizione")%>
 <%
