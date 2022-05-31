@@ -280,7 +280,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="modalBodyAut"></div>
+                        <div id="modalBodyAut">Loading...</div>
                     </div>
                     <div class="modal-footer">
                         <button

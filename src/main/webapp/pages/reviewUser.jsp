@@ -45,13 +45,38 @@
                 out.write("<hr class=\"solid\">");
         }
     }
+
+} else if (t.equals("aut")) {
+    sql = "SELECT * FROM ((votazioniP p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobile a ON a.idAutomobile = v.idAutomobile) INNER JOIN utenti u ON u.idUtente = a.idUtente WHERE p.idPasseggero='" + id + "'";
+    rs = stmt.executeQuery(sql);
+    if (!rs.next()) {
+        out.println("There are no review for this user");
+    } else {
+        rs.beforeFirst();
+        while (rs.next()) {
 %>
+<div style="margin: 5px 0px 10px 0px">
+    <%
+        int voto = rs.getInt("voto");
 
-<%} else if (t.equals("aut")) {%>
-
-<h1>Ciao</h1>
-
-<%} else {%>
+        for (int i = 0; i < 5; i++) {
+            if (i < voto) {
+                out.write("<span class=\"fa fa-star fa-lg checked\"></span>");
+            } else {
+                out.write("<span class=\"fa fa-star fa-lg nonchecked\"></span>");
+            }
+        }
+    %>
+</div>
+<%="Review by " + rs.getString("cognome") + " " + rs.getString("nome") + ": "%>
+<br>
+<%=rs.getString("descrizione")%>
+<%
+            if (!rs.isLast())
+                out.write("<hr class=\"solid\">");
+        }
+    }
+} else {%>
 
 Error
 
