@@ -140,7 +140,7 @@
                                     </text>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Details</a>
+                                    <a href="detailsPage.jsp" class="dropdown-item">Details</a>
                                     <div class="dropdown-divider"></div>
                                     <a href="../../index.jsp" class="dropdown-item">Logout</a>
                                 </div>

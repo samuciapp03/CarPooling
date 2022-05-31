@@ -80,66 +80,47 @@ public class Functions {
         String y = a[0];
         String m = a[1];
         String d = a[2];
-        String format = "";
+        String format = d + " ";
 
         switch (m) {
             case "01":
-                format = "January ";
+                format = "Gennaio ";
                 break;
             case "02":
-                format = "February ";
+                format = "Febbraio ";
                 break;
             case "03":
-                format = "March ";
+                format = "Marzo ";
                 break;
             case "04":
-                format = "April ";
+                format = "Aprile ";
                 break;
             case "05":
-                format = "May ";
+                format = "Maggio ";
                 break;
             case "06":
-                format = "June ";
+                format = "Giugno ";
                 break;
             case "07":
-                format = "July ";
+                format = "Luglio ";
                 break;
             case "08":
-                format = "August ";
+                format = "Agosto ";
                 break;
             case "09":
-                format = "September ";
+                format = "Settembre ";
                 break;
             case "10":
-                format = "October ";
+                format = "Ottobre ";
                 break;
             case "11":
-                format = "November ";
+                format = "Novembre ";
                 break;
             case "12":
-                format = "December ";
+                format = "Dicembre ";
                 break;
         }
 
-        switch (d) {
-            case "01":
-            case "21":
-            case "31":
-                format = format + String.valueOf(Integer.valueOf(d)) + "st";
-                break;
-            case "02":
-            case "22":
-                format = format + String.valueOf(Integer.valueOf(d)) + "nd";
-                break;
-            case "03":
-            case "23":
-                format = format + String.valueOf(Integer.valueOf(d)) + "rd";
-                break;
-            default:
-                format = format + String.valueOf(Integer.valueOf(d)) + "th";
-                break;
-
-        }
         format = format + " " + y;
         return format;
     }
