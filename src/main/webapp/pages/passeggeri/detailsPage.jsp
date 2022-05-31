@@ -17,6 +17,27 @@
 
     Functions f = new Functions();
     String img = "";
+    int numViaggi = 0;
+    float media = 0;
+
+    String sql = "";
+    ResultSet rs = null;
+
+    sql = "SELECT COUNT(*) AS num FROM prenotazioni WHERE valutato='y' AND idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
+    rs = stmt.executeQuery(sql);
+
+    if(rs.next()){
+        numViaggi = rs.getInt("num");
+    }
+
+    sql = "SELECT AVG(votazioneA) AS avg FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
+    rs = stmt.executeQuery(sql);
+
+    if(rs.next()){
+        media = rs.getFloat("avg");
+    }
+    int integerPart = (int) media;
+    float decimalPart = media - integerPart;
 %>
 <html>
 <head>
@@ -116,8 +137,8 @@
                     </h1>
                     <div class="cont overflow-auto home">
                         <%
-                            String sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
-                            ResultSet rs = stmt.executeQuery(sql);
+                            sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
+                            rs = stmt.executeQuery(sql);
                             if (!rs.next()) {
                                 out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
                             } else {
@@ -172,6 +193,36 @@
                                 <td scope="row"
                                     class="d-flex justify-content-center"
                                     style="text-align: center"><%=rs.getString("tel")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Number of trips you took part of
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=numViaggi%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Avarage grade recieved
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center">
+                                        <%
+                                            for (int i = 0; i < 5; i++) {
+                                                if (i < integerPart) {
+                                                    out.write("<span class=\"fa fa-star fa-lg checked\"></span>");
+                                                }
+                                                if (i == integerPart && decimalPart != 0){
+
+                                                }
+                                                if (i > integerPart){
+                                                    out.write("<span class=\"fa fa-star fa-lg nonchecked\"></span>");
+                                                }
+                                            }
+                                        %>
+                                    </div>
                                 </td>
                             </tr>
                             <% }
