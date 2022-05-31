@@ -258,7 +258,8 @@
                                                             "<%=rs.getString("sosta")%>",
                                                             "<%=rs.getString("fermata1")%>",
                                                             "<%=rs.getString("fermata2")%>",
-                                                            "<%=rs.getString("idViaggio")%>")'
+                                                            "<%=rs.getString("idViaggio")%>",
+                                                            "")'
                                             /></a>
                                         </td>
                                         <input type="text" style="display: none" name="idViaggio"
@@ -328,7 +329,7 @@
                                             <a data-toggle="modal" data-target="#modalDiv"><img
                                                     src="../../img/open.webp" class="cursor"
                                                     style="height: 15px; width: 15px;margin-top: 2px"
-                                                    onclick='showModalAltro("From <%=rs.getString("partenza")%> to <%=rs.getString("arrivo")%>",
+                                                    onclick='showModal("From <%=rs.getString("partenza")%> to <%=rs.getString("arrivo")%>",
                                                             "<%=rs.getString("cognome")%> <%=rs.getString("u.nome")%>",
                                                             "<%=rs.getString("dataInizio")%>",
                                                             "<%=rs.getString("oraPartenza")%>",
@@ -340,11 +341,12 @@
                                                             "<%=rs.getString("sosta")%>",
                                                             "<%=rs.getString("fermata1")%>",
                                                             "<%=rs.getString("fermata2")%>",
-                                                            "<%=rs.getString("idViaggio")%>")'
+                                                            "<%=rs.getString("idViaggio")%>",
+                                                            "a")'
                                             /></a>
                                         </td>
                                         <input type="text" style="display: none" name="idViaggio"
-                                               id="idViaggio"/>
+                                               id="idViaggioAltro"/>
                                     </tr>
                                     <% }
                                     }%>
@@ -420,7 +422,7 @@
                         >
                             Close
                         </button>
-                        <button type="button" class="btn btn-primary" id="buttonSubmitModal">
+                        <button type="button" class="btn btn-primary" id="buttonSubmitModal" onclick="">
                             Book
                         </button>
                     </div>
@@ -429,7 +431,7 @@
         </div>
 
         <script>
-            function showModal(title, driv, day, time, dur, car, eco, anim, baga, stops, stop1, stop2, idViaggio) {
+            function showModal(title, driv, day, time, dur, car, eco, anim, baga, stops, stop1, stop2, idViaggio, altro) {
                 document.getElementById("modalLabel").innerText = title;
                 document.getElementById("drivModal").innerText = driv;
                 document.getElementById("dayModal").innerText = day;
@@ -463,46 +465,19 @@
                 } else
                     document.getElementById("stopsModal").innerText = "Non consentiti";
 
-                document.getElementById("idViaggio").value = idViaggio;
-                document.getElementById("buttonSubmitModal").onclick = document.getElementById("formViaggio").submit();
-            }
 
-            function showModalAltro(title, driv, day, time, dur, car, eco, anim, baga, stops, stop1, stop2, idViaggio) {
-                document.getElementById("modalLabel").innerText = title;
-                document.getElementById("drivModal").innerText = driv;
-                document.getElementById("dayModal").innerText = day;
-                document.getElementById("timeModal").innerText = time;
-                document.getElementById("durModal").innerText = dur;
-                document.getElementById("carModal").innerText = car;
-                document.getElementById("ecoModal").innerText = eco;
-
-                if (anim === "y")
-                    document.getElementById("animModal").innerText = "Consentiti";
-                else
-                    document.getElementById("animModal").innerText = "Non consentiti";
-
-                if (baga === "y")
-                    document.getElementById("bagaModal").innerText = "Consentiti";
-                else
-                    document.getElementById("bagaModal").innerText = "Non consentiti";
-
-                if (stops === "y") {
-                    document.getElementById("stopsModal").innerText = "Consentiti"
-
-                    if (stop1 != "") {
-                        document.getElementById("stop1Modal").innerText = "Stop 1: " + stop1;
-                        document.getElementById("stop1Modal").style.display = "block";
+                if (altro === "") {
+                    document.getElementById("buttonSubmitModal").onclick = function () {
+                        document.getElementById("formViaggio").submit();
                     }
-
-                    if (stop2 != "") {
-                        document.getElementById("stop2Modal").innerText = "Stop 2: " + stop2;
-                        document.getElementById("stop2Modal").style.display = "block";
+                    document.getElementById("idViaggio").value = idViaggio;
+                } else {
+                    document.getElementById("buttonSubmitModal").onclick = function () {
+                        document.getElementById("formViaggioAltro").submit();
                     }
-                } else
-                    document.getElementById("stopsModal").innerText = "Non consentiti";
+                    document.getElementById("idViaggioAltro").value = idViaggio;
 
-                document.getElementById("idViaggio").value = idViaggio;
-                document.getElementById("buttonSubmitModal").onclick = document.getElementById("formViaggioAltro").submit();
+                }
             }
         </script>
     </div>

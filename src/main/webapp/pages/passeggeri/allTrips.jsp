@@ -174,7 +174,7 @@
                         </h1>
                         <div class="cont overflow-auto cont">
                             <%
-                                sql = "SELECT u.username,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.dataInizio>'" + dtf.format(now) + "' AND v.nPasseggeri>0 AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')) ORDER BY v.dataInizio ASC LIMIT 10";
+                                sql = "SELECT u.username, u.idUtente,u.cognome,u.nome, v.idViaggio, v.partenza,v.arrivo,v.oraPartenza,v.dataInizio,v.durata, v.nPasseggeri, v.contributo, v.animali, v.bagagli, v.sosta, v.fermata1, v.fermata2, a.marca,a.modello FROM (viaggi v INNER JOIN automobili a ON a.idAutomobile=v.idAutomobile) INNER JOIN utenti u ON u.idUtente=a.idUtente WHERE v.dataInizio>'" + dtf.format(now) + "' AND v.nPasseggeri>0 AND v.idViaggio NOT IN (SELECT idViaggio FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')) ORDER BY v.dataInizio ASC LIMIT 10";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">There are no available trips</div>");
@@ -199,7 +199,13 @@
                                     %>
                                     <tr>
                                         <th scope="row"
-                                            class="d-flex justify-content-center"><%=rs.getString("cognome")%> <%=rs.getString("u.nome")%>
+                                            class="d-flex justify-content-center">
+                                            <text data-toggle="modal"
+                                                  data-target="#modalDivAut"
+                                                  class="cursor"
+                                                  onclick="popModal('<%=rs.getString("u.idUtente")%>', '<%=rs.getString("cognome") + " " + rs.getString("nome")%>');"
+                                                  style="text-decoration-line: underline;"><%=rs.getString("cognome") + " " + rs.getString("u.nome")%>
+                                            </text>
                                         </th>
                                         <td style="text-align: center"><%=rs.getString("dataInizio") + " " + rs.getString("oraPartenza")%>
                                         </td>
@@ -244,6 +250,50 @@
             </div>
         </div>
 
+        <script>
+            function popModal(id, nome) {
+                document.getElementById('modalLabelAut').innerText = 'Reviews of ' + nome;
+                $('#modalBodyAut').load("../reviewUser.jsp?id=" + id + "&type=aut");
+            }
+        </script>
+
+        <!-- Modal -->
+        <div
+                class="modal fade"
+                id="modalDivAut"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="modalLabelAut"
+                aria-hidden="true"
+        >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabelAut"></h5>
+                        <button
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalBodyAut"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button
+                                type="button"
+                                class="btn btn-secondary"
+                                data-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div
@@ -378,5 +428,6 @@
         crossorigin="anonymous"
 ></script>
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 </html>

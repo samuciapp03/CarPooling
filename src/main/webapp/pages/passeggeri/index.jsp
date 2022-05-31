@@ -274,6 +274,7 @@
                                     <th scope="col" style="text-align: center">Destination</th>
                                     <th scope="col" style="text-align: center">Date</th>
                                     <th scope="col" style="text-align: center">Driver</th>
+                                    <th scope="col" style="text-align: center">Car</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -290,6 +291,8 @@
                                     <td style="text-align: center"><%=rs.getString("arrivo")%>
                                     </td>
                                     <td style="text-align: center"><%=f.renderDate(rs.getString("dataInizio"))%>
+                                    </td>
+                                    <td style="text-align: center"><%=rs.getString("cognome") + " " + rs.getString("nome")%>
                                     </td>
                                     <td style="text-align: center"><%=rs.getString("marca") + " " + rs.getString("modello")%>
                                     </td>

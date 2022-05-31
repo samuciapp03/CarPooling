@@ -265,6 +265,14 @@ i {
     color: orange !important;
 }
 
+.nonchecked {
+    color: black !important;
+}
+
+.nonchecked:hover {
+    color: black !important;
+}
+
 .row {
     width: 100%;
     margin: 0px !important;

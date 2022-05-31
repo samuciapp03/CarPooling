@@ -17,9 +17,6 @@
         return;
     }
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-    LocalDateTime now = LocalDateTime.now();
-
     Functions f = new Functions();
 
     int id = 0;
@@ -195,7 +192,7 @@
                                     <text data-toggle="modal"
                                           data-target="#modalDiv"
                                           class="cursor"
-                                          onclick="popModal('<%=rs.getString("idUtente")%>');"
+                                          onclick="popModal('<%=rs.getString("idUtente")%>', '<%=rs.getString("cognome") + " " + rs.getString("nome")%>');"
                                           style="text-decoration-line: underline;"><%=rs.getString("cognome") + " " + rs.getString("nome")%>
                                     </text>
                                 </th>
@@ -232,8 +229,10 @@
         </div>
 
         <script>
-            function popModal(id) {
-                $('#modalBody').load("../reviewUser.jsp?id=" + id);
+            function popModal(id, nome) {
+
+                document.getElementById('modalLabel').innerText = 'Reviews of ' + nome;
+                $('#modalBody').load("../reviewUser.jsp?id=" + id + "&type=pas");
             }
         </script>
 
@@ -260,7 +259,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="modalBody"></div>
+                        <div id="modalBody">Loading...</div>
                     </div>
                     <div class="modal-footer">
                         <button

@@ -16,8 +16,12 @@
     }
 
     Functions f = new Functions();
+    int idViaggio;
 
-    int idViaggio = Integer.parseInt(request.getParameter("idViaggio"));
+    if (request.getParameter("idViaggio").equals(null))
+        idViaggio = Integer.parseInt(request.getParameter("idViaggioAltro"));
+    else
+        idViaggio = Integer.parseInt(request.getParameter("idViaggio"));
 
     int idUtente = 0;
     String nome = null;

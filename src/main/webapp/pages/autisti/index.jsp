@@ -238,7 +238,7 @@
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM viaggi v INNER JOIN automobili a ON v.idAutomobile = a.idAutomobile  WHERE a.idUtente = " + id + " AND v.completato='y' ORDER BY v.dataInizio DESC LIMIT 3";
+                                sql = "SELECT * FROM viaggi v INNER JOIN automobili a ON v.idAutomobile = a.idAutomobile WHERE a.idUtente = " + id + " AND v.completato='y' ORDER BY v.dataInizio DESC LIMIT 3";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">You did no trips</div>");
