@@ -26,14 +26,14 @@
     sql = "SELECT COUNT(*) AS num FROM prenotazioni WHERE valutato='y' AND idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
-    if(rs.next()){
+    if (rs.next()) {
         numViaggi = rs.getInt("num");
     }
 
     sql = "SELECT AVG(votazioneA) AS avg FROM prenotazioni WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
-    if(rs.next()){
+    if (rs.next()) {
         media = rs.getFloat("avg");
     }
     int integerPart = (int) media;
@@ -66,7 +66,7 @@
             <br/>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Car Pooling</a>
+                    <a class="navbar-brand" href="./">Car Pooling</a>
                     <button
                             class="navbar-toggler"
                             type="button"
@@ -151,7 +151,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%
+                                <%
                                 rs.beforeFirst();
                                 while (rs.next()) {
                             %>
@@ -212,30 +212,30 @@
                                         <%
                                             for (int i = 0; i < 5; i++) {
                                                 if (i < integerPart) {
-                                                    out.write("<span class=\"fa fa-star fa-lg checked\"></span>");
+                                                    out.write("<span class=\"fa fa-star fa-large checked\"></span>");
                                                 }
-                                                if (i == integerPart && decimalPart != 0){
-
+                                                else if (i == integerPart){
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
                                                 }
-                                                if (i > integerPart){
-                                                    out.write("<span class=\"fa fa-star fa-lg nonchecked\"></span>");
+                                                else if (i > integerPart){
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
                                                 }
                                             }
                                         %>
-                                    </div>
-                                </td>
-                            </tr>
-                            <% }
-                            }%>
-                            </tbody>
-                        </table>
-                        <br/>
                     </div>
-                    <br/><br/>
+                    </td>
+                    </tr>
+                    <% }
+                    }%>
+                    </tbody>
+                    </table>
+                    <br/>
                 </div>
+                <br/><br/>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script
