@@ -14,7 +14,7 @@
     }
     rs.close();
 
-    sql = "SELECT idAutomobile, marca, modello FROM automobili WHERE idUtente='" + id + "'";
+    sql = "SELECT idAutomobile, marca, modello FROM automobili WHERE idUtente='" + id + "' AND eliminata='n'";
     rs = stmt.executeQuery(sql);
 %>
 

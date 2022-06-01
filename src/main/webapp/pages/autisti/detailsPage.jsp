@@ -67,12 +67,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Profilo Driver</title>
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script>
+        function del(btn) {
+            const a = btn.id;
+            document.location.href = "deleteCar.jsp?id=" + a;
+        }
+    </script>
 </head>
 <body>
 <div class="bg-image">
     <div class="overflow-auto cont">
         <header>
-            <br/>
+            <br>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
                     <a class="navbar-brand" href="#">Car Pooling</a>
@@ -154,7 +160,180 @@
             </nav>
         </header>
         <br>
+        <div class="height righe" id="driverDetail">
+            <div class="wrapper fadeInDown">
+                <div class="homeDiv">
+                    <br/>
+                    <h1
+                            class="fadeIn first"
+                            style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
+                    >
+                        Your personal details
+                    </h1>
+                    <div class="cont overflow-auto home">
+                        <%
+                            sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
+                            rs = stmt.executeQuery(sql);
+                            if (!rs.next()) {
+                                out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
+                            } else {
+                        %>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center">Field</th>
+                                <th scope="col" style="text-align: center">Your detail</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <%
+                                rs.beforeFirst();
+                                while (rs.next()) {
+                            %>
+                            <tr>
+                                <th style="text-align: center">Username
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("username")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Name and Surname
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("nome") + " " + rs.getString("cognome")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Date of birth
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=f.renderDate(rs.getString("dataNascita"))%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Email
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("email")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Telephone
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("tel")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Number of trips you took part of
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=numViaggi%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Avarage grade recieved
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center">
+                                        <%
+                                            for (int i = 0; i < 5; i++) {
+                                                if (i < media && i+1 > media) {
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
+                                                }
+                                                else if (i < media){
+                                                    out.write("<span class=\"fa fa-star fa-large checked\"></span>");
+                                                }
+                                                else if (i > media){
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
+                                                }
+                                                else if (i == media){
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
+                                                }
+                                            }
+                                        %>
+                    </div>
+                    </td>
+                    </tr>
+                    <% }
+                    }%>
+                    </tbody>
+                    </table>
+                    <br/>
+                </div>
+                <br/><br/>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="height righe" id="nexttrips">
+                <div class="wrapper fadeInDown">
+                    <div class="homeDiv">
+                        <br/>
+                        <h1
+                                class="fadeIn first"
+                                style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
+                        >
+                            Your registered cars
+                        </h1>
+                        <div class="cont overflow-auto home">
+                            <%
+                                sql = "SELECT * FROM automobili a INNER JOIN utenti u ON a.idUtente = u.idUtente  WHERE a.idUtente = " + id + " AND a.eliminata='n'";
+                                rs = stmt.executeQuery(sql);
+                                if (!rs.next()) {
+                                    out.write("<div class=\"container d-flex justify-content-center\">You have no cars</div>");
+                                } else {
+                            %>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col" style="text-align: center">Cancel</th>
+                                    <th scope="col" style="text-align: center">Marca</th>
+                                    <th scope="col" style="text-align: center">Modello</th>
+                                    <th scope="col" style="text-align: center">Anno d'Immatricolazione</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <%
+                                    rs.beforeFirst();
+                                    while (rs.next()) {
+                                %>
+                                <tr>
 
+                                    <th scope="row"
+                                        class="d-flex justify-content-center">
+                                        <button type="button" id="<%=rs.getString("idAutomobile")%>"
+                                                onclick="del(this)"
+                                                style="background: none;padding: 0px;border: none">
+                                            <i class="fas fa-trash" style="font-size:24px;color:red"></i>
+                                        </button>
+                                    </th>
+                                    <td style="text-align: center"><%=rs.getString("marca")%>
+                                    </td>
+                                    <td style="text-align: center"><%=rs.getString("modello")%>
+                                    </td>
+                                    <td style="text-align: center"><%=rs.getString("annoImm")%>
+                                    </td>
+                                </tr>
+                                <% }
+                                }%>
+                                </tbody>
+                            </table>
+                            <br/>
+                        </div>
+                        <br/><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <script
