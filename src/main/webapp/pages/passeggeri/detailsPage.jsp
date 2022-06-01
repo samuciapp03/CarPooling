@@ -10,8 +10,8 @@
 <%@page import="com.example.carpooling.Functions" %>
 
 <%
-    if (session.getAttribute("username").equals("")) {
-        response.sendRedirect("../index.jsp");
+    if (session.getAttribute("username").equals("") || !session.getAttribute("ruolo").equals("p")) {
+        response.sendRedirect("index.jsp");
         return;
     }
 
