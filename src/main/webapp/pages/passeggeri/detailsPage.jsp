@@ -123,7 +123,7 @@
             </nav>
         </header>
         <br>
-        <div class="height righe" id="nexttrips">
+        <div class="height righe" id="passengerDetail">
             <div class="wrapper fadeInDown">
                 <div class="homeDiv">
                     <br/>

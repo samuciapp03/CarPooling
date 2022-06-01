@@ -118,7 +118,7 @@
         }
         rs.close();
 
-        sql = "INSERT INTO automobili(marca, modello, idUtente, annoImm, img, targa) values (?, ?, ?, ?, ?, ?)";
+        sql = "INSERT INTO automobili(marca, modello, idUtente, annoImm, img, targa, eliminata) values (?, ?, ?, ?, ?, ?, ?)";
         prprstmt = cn.prepareStatement(sql);
         prprstmt.setString(1, marca);
         prprstmt.setString(2, modello);
@@ -126,6 +126,7 @@
         prprstmt.setString(4, annoImm);
         prprstmt.setString(5, recordFileName);
         prprstmt.setString(6, targa);
+        prprstmt.setString(7, "n");
 
         int row = prprstmt.executeUpdate();
         if (row > 0) {
