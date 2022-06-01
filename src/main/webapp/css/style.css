@@ -273,6 +273,23 @@ i {
     color: black !important;
 }
 
+.split {
+    color: orange !important;
+    position: absolute;
+    overflow: hidden;
+    width: 12.5px;
+    transform: translate(18px, 0px);
+}
+
+.fa-large {
+    font-size: 1.33333333em !important;
+    vertical-align: -15% !important;
+}
+
+.split:hover {
+    color: orange !important;
+}
+
 .row {
     width: 100%;
     margin: 0px !important;
