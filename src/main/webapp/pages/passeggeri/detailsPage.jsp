@@ -23,7 +23,7 @@
     String sql = "";
     ResultSet rs = null;
 
-    sql = "SELECT COUNT(*) AS num FROM prenotazioni WHERE valutato='y' AND idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
+    sql = "SELECT COUNT(*) AS num FROM prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio WHERE v.completato='y' AND p.idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
     if (rs.next()) {
