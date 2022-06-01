@@ -36,8 +36,6 @@
     if (rs.next()) {
         media = rs.getFloat("avg");
     }
-    int integerPart = (int) media;
-    float decimalPart = media - integerPart;
 %>
 <html>
 <head>
@@ -211,13 +209,16 @@
                                     style="text-align: center">
                                         <%
                                             for (int i = 0; i < 5; i++) {
-                                                if (i < integerPart) {
-                                                    out.write("<span class=\"fa fa-star fa-large checked\"></span>");
-                                                }
-                                                else if (i == integerPart){
+                                                if (i < media && i+1 > media) {
                                                     out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
                                                 }
-                                                else if (i > integerPart){
+                                                else if (i < media){
+                                                    out.write("<span class=\"fa fa-star fa-large checked\"></span>");
+                                                }
+                                                else if (i > media){
+                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
+                                                }
+                                                else if (i == media){
                                                     out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
                                                 }
                                             }
