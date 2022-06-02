@@ -169,7 +169,7 @@
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "UPDATE viaggi v INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile SET v.completato='y' WHERE v.completato='n' AND v.dataInizio<'" + dtf.format(now) + "'";
+                                sql = "UPDATE viaggi v SET v.completato='y' WHERE v.dataInizio<'" + dtf.format(now) + "'";
                                 prprstmt = cn.prepareStatement(sql);
                                 int row = prprstmt.executeUpdate();
 

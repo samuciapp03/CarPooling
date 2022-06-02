@@ -12,6 +12,8 @@
 
 <%@page import="com.example.carpooling.Functions" %>
 <%@ page import="java.io.*" %>
+<%@ page import="java.nio.file.Path" %>
+<%@ page import="java.nio.file.Paths" %>
 <%@include file="../database.jsp" %>
 
 <%
@@ -27,13 +29,13 @@
     String annoImm = null;
 
     File nuovoFile;
-    File finaleFile;
+    File finaleFile = null;
     String recordFileName = null;
 
     int id = 0;
     int num = 1;
 
-    String sql = "SELECT COUNT(*) AS TOT FROM automobili WHERE idUtente=(SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "') GROUP BY idUtente";
+    String sql = "SELECT COUNT(*) AS TOT FROM automobili WHERE idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "') GROUP BY idUtente";
     ResultSet rs = stmt.executeQuery(sql);
 
     while (rs.next()) {
@@ -109,6 +111,24 @@
             }
         }
 
+        String s;
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/cars");
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+            p.waitFor();
+            p.destroy();
+            try {
+                p = Runtime.getRuntime().exec("rm " + finaleFile);
+                br = new BufferedReader(
+                        new InputStreamReader(p.getInputStream()));
+                p.waitFor();
+                p.destroy();
+            } catch (Exception e) {
+            }
+        } catch (Exception e) {
+        }
 
         sql = "SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "'";
         rs = stmt.executeQuery(sql);
