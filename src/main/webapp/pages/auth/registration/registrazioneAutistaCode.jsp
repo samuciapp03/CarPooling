@@ -34,9 +34,12 @@
 
     int count = 0;
     File nuovoFile;
-    File finaleFile;
+    File finaleFile = null;
     String recordFileName1 = null;
     String recordFileName2 = null;
+
+    String s;
+    Process p = null;
 
     boolean isMultipart = ServletFileUpload.isMultipartContent(request);
     if (!isMultipart) {
@@ -158,7 +161,31 @@
                 }
 
                 item.write(finaleFile);
+
+                try {
+                    if (count == 0) {
+                        p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/propic");
+                    } else {
+                        p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/idcard");
+                    }
+                    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(p.getInputStream()));
+                    p.waitFor();
+                    p.destroy();
+
+                    try {
+                        p = Runtime.getRuntime().exec("rm " + finaleFile);
+                        br = new BufferedReader(
+                                new InputStreamReader(p.getInputStream()));
+                        p.waitFor();
+                        p.destroy();
+                    } catch (Exception e) {
+                    }
+                } catch (Exception e) {
+                }
+
                 count++;
+
             }
         }
 
