@@ -28,7 +28,7 @@
     String password2 = null;
 
     File nuovoFile;
-    File finaleFile;
+    File finaleFile = null;
     String recordFileName = null;
 
     boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -133,6 +133,25 @@
 
                 item.write(finaleFile);
             }
+        }
+
+        String s;
+        Process p;
+        try {
+            p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/propic");
+            BufferedReader br = new BufferedReader(
+                    new InputStreamReader(p.getInputStream()));
+            p.waitFor();
+            p.destroy();
+            try {
+                p = Runtime.getRuntime().exec("rm " + finaleFile);
+                br = new BufferedReader(
+                        new InputStreamReader(p.getInputStream()));
+                p.waitFor();
+                p.destroy();
+            } catch (Exception e) {
+            }
+        } catch (Exception e) {
         }
 
         String sql = "INSERT INTO utenti(cognome, nome, username, password, dataNascita, email, img, tel, ruolo, idcard, npatente, scadenza) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

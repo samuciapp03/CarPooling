@@ -123,140 +123,116 @@
             </nav>
         </header>
         <br>
-        <div class="row height cont">
-            <div class="col-lg d-flex justify-content-center align-items-center">
-                <img
-                        src="<%
-                            if (!img.equals(""))
-                                //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/" + img);
-                                out.write("../../img/propic/" + img);
-                            else
-                                //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/default.jpg");
-                                out.write("../../img/default.jpeg");
-                            %>"
-                        class="iconos profileImage cursor"
-                        style="width: 100px; height: 100px"
-                        alt="hammer"
-                />
-            </div>
-            <div class="col-lg-6 d-flex justify-content-center">
-                <div class="wrapper fadeInDown">
-                    <div class="formContent">
-                        <div class="overflow-auto reg">
-                            <br/>
-                            <h1
-                                    class="fadeIn first"
-                                    style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
-                            >
-                                Your personal details
-                            </h1>
-                            <text
-                                    type="text"
-                                    id="photo"
-                                    class="form-control fadeIn second inputStyle"
-                                    name="photo"
-                            >Melzi Marco
-                            </text>
-                            <br>
-
-                            <%
-                                sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
-                                rs = stmt.executeQuery(sql);
-                                if (!rs.next()) {
-                                    out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
-                                } else {
-                            %>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col" style="text-align: center">Field</th>
-                                    <th scope="col" style="text-align: center">Your detail</th>
-                                </tr>
-                                </thead>
-                                <tbody>
+        <div class="height righe" id="passengerDetail">
+            <div class="wrapper fadeInDown">
+                <div class="homeDiv">
+                    <br/>
+                    <h1
+                            class="fadeIn first"
+                            style="padding: 0px 10px 10px 10px; color: rgb(97, 95, 133)"
+                    >
+                        Your personal details
+                    </h1>
+                    <div class="cont overflow-auto home">
+                        <%
+                            sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
+                            rs = stmt.executeQuery(sql);
+                            if (!rs.next()) {
+                                out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
+                            } else {
+                        %>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" style="text-align: center">Field</th>
+                                <th scope="col" style="text-align: center">Your detail</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                                 <%
-                                    rs.beforeFirst();
-                                    while (rs.next()) {
-                                %>
-                                <tr>
-                                    <th style="text-align: center">Username
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("username")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Name and Surname
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("nome") + " " + rs.getString("cognome")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Date of birth
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=f.renderDate(rs.getString("dataNascita"))%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Email
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("email")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Telephone
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("tel")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Number of trips you took part of
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=numViaggi%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Avarage grade recieved
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center">
+                                rs.beforeFirst();
+                                while (rs.next()) {
+                            %>
+                            <tr>
+                                <th style="text-align: center">Username
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("username")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Name and Surname
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("nome") + " " + rs.getString("cognome")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Date of birth
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=f.renderDate(rs.getString("dataNascita"))%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Email
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("email")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Telephone
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=rs.getString("tel")%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Number of trips you took part of
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center"><%=numViaggi%>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="text-align: center">Avarage grade recieved
+                                </th>
+                                <td scope="row"
+                                    class="d-flex justify-content-center"
+                                    style="text-align: center">
                                         <%
                                             for (int i = 0; i < 5; i++) {
-                                                if (i < media && i + 1 > media) {
+                                                if (i < media && i+1 > media) {
                                                     out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
-                                                } else if (i < media) {
+                                                }
+                                                else if (i < media){
                                                     out.write("<span class=\"fa fa-star fa-large checked\"></span>");
-                                                } else if (i > media) {
+                                                }
+                                                else if (i > media){
                                                     out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
-                                                } else if (i == media) {
+                                                }
+                                                else if (i == media){
                                                     out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
                                                 }
                                             }
                                         %>
-
-                                    </td>
-                                </tr>
-                                <% }
-                                }%>
-                                </tbody>
-                            </table>
-                            <br/>
-                        </div>
                     </div>
-                    <br/><br/>
+                    </td>
+                    </tr>
+                    <% }
+                    }%>
+                    </tbody>
+                    </table>
+                    <br/>
                 </div>
+                <br/><br/>
             </div>
         </div>
     </div>
