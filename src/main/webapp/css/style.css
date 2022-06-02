@@ -152,6 +152,14 @@ i {
     width: 100%;
 }
 
+.height.login {
+    height: 90vh !important;
+}
+
+.height.cont {
+    height: 80vh !important;
+}
+
 .height.righe {
     height: 45vh;
 }
@@ -171,6 +179,10 @@ i {
 @media (max-width: 991px) {
     .height {
         height: 45vh;
+    }
+
+    .height.cont {
+        height: 40vh !important;
     }
 
     .animated-text {

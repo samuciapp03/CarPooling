@@ -36,12 +36,12 @@
     <div class="overflow-auto cont">
         <div class="container">
             <div class="row gy-5 ">
-                <div class="col-lg d-flex justify-content-center align-items-center fadeIn third height">
+                <div class="col-lg d-flex justify-content-center align-items-center fadeIn third height login">
                     <div class="animated-text b1">Travel</div>
                     <div class="animated-text b2">Share</div>
                     <div class="animated-text b3">Pooling</div>
                 </div>
-                <div class="col-lg" d-flex justify-content-center height>
+                <div class="col-lg d-flex justify-content-center height login">
                     <div class="wrapper fadeInDown">
                         <div class="formContent">
                             <!-- Login Form -->

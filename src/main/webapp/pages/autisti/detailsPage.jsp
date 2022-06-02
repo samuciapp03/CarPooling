@@ -36,14 +36,14 @@
     sql = "SELECT COUNT(*) AS num FROM (viaggi v INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE v.completato='y' AND u.idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
-    if(rs.next()){
+    if (rs.next()) {
         numViaggi = rs.getInt("num");
     }
 
     sql = "SELECT AVG(voto) AS avg FROM ((votazioniP vp INNER JOIN viaggi vi ON vp.idViaggio=vp.idViaggio) INNER JOIN automobili a ON a.idAutomobile = vi.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE u.idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
-    if(rs.next()){
+    if (rs.next()) {
         media = rs.getFloat("avg");
     }
     int integerPart = (int) media;
