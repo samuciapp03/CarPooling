@@ -125,7 +125,7 @@
         <br>
         <div class="height righe" id="passengerDetail">
             <div class="wrapper fadeInDown">
-                <div class="homeDiv">
+                <div class="formContent">
                     <br/>
                     <h1
                             class="fadeIn first"
@@ -133,7 +133,7 @@
                     >
                         Your personal details
                     </h1>
-                    <div class="cont overflow-auto home">
+                    <div class="cont overflow-auto reg">
                         <%
                             sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
                             rs = stmt.executeQuery(sql);
