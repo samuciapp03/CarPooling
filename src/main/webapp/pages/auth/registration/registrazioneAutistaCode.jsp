@@ -150,42 +150,21 @@
                 } else {
                     fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
                 }
+
                 if (count == 0) {
                     nuovoFile = new File(application.getRealPath("/img/propic"), fileName);
                     recordFileName1 = username + "." + extension;
                     finaleFile = new File(application.getRealPath("/img/propic"), recordFileName1);
+
+                    f.sendImage(finaleFile, "profile", recordFileName1);
                 } else {
                     nuovoFile = new File(application.getRealPath("/img/idcard"), fileName);
                     recordFileName2 = username + "." + extension;
                     finaleFile = new File(application.getRealPath("/img/idcard"), recordFileName2);
+
+                    f.sendImage(finaleFile, "idcard", recordFileName2);
                 }
-
-                item.write(finaleFile);
-
-                try {
-                    if (count == 0) {
-                        p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/propic");
-                    } else {
-                        p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/idcard");
-                    }
-                    BufferedReader br = new BufferedReader(
-                            new InputStreamReader(p.getInputStream()));
-                    p.waitFor();
-                    p.destroy();
-
-                    try {
-                        p = Runtime.getRuntime().exec("rm " + finaleFile);
-                        br = new BufferedReader(
-                                new InputStreamReader(p.getInputStream()));
-                        p.waitFor();
-                        p.destroy();
-                    } catch (Exception e) {
-                    }
-                } catch (Exception e) {
-                }
-
                 count++;
-
             }
         }
 

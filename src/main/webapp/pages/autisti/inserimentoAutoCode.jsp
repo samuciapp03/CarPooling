@@ -107,27 +107,8 @@
                 recordFileName = session.getAttribute("username") + String.valueOf(num) + "." + extension;
                 finaleFile = new File(application.getRealPath("/img/cars"), recordFileName);
 
-                item.write(finaleFile);
+                f.sendImage(finaleFile, "car", recordFileName);
             }
-        }
-
-        String s;
-        Process p;
-        try {
-            p = Runtime.getRuntime().exec("scp " + finaleFile + " samu_ciappesoni@34.121.51.33:/home/samu_ciappesoni/img/cars");
-            BufferedReader br = new BufferedReader(
-                    new InputStreamReader(p.getInputStream()));
-            p.waitFor();
-            p.destroy();
-            try {
-                p = Runtime.getRuntime().exec("rm " + finaleFile);
-                br = new BufferedReader(
-                        new InputStreamReader(p.getInputStream()));
-                p.waitFor();
-                p.destroy();
-            } catch (Exception e) {
-            }
-        } catch (Exception e) {
         }
 
         sql = "SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "'";

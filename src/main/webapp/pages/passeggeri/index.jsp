@@ -131,11 +131,9 @@
                                     <img
                                             src="<%
                                                 if (!img.equals(""))
-                                                    //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/" + img);
-                                                    out.write("../../img/propic/" + img);
+                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/" + img);
                                                 else
-                                                    //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/default.jpg");
-                                                    out.write("../../img/default.jpeg");
+                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/default.jpg");
                                             %>"
                                             class="iconos profileImage cursor"
                                             alt="hammer"
