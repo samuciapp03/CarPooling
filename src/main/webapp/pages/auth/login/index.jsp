@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../../../css/style.css"/>
     <link rel="stylesheet" href="../../../css/login.css"/>
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Pacifico"/>
+    <link rel="shortcut icon" href="../../../icons/logo.png">
 
     <title>Car Pooling</title>
 </head>

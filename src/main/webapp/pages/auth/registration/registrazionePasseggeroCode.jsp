@@ -172,7 +172,11 @@
 
         int row = prprstmt.executeUpdate();
         if (row > 0) {
-            response.sendRedirect("../../../index.jsp");
+            String code = f.generateRandomPassword(8);
+            session.setAttribute("username", username);
+            session.setAttribute("code", code);
+            f.send(email, "Conferma Registrazione", "Il codice di verifica per confermare la registrazione e': " + code);
+            response.sendRedirect("verificaCodice.jsp");
             return;
         }
     }

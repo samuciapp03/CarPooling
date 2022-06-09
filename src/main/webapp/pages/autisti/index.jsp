@@ -50,6 +50,8 @@
 
     <link href="../../css/style.css" rel="stylesheet"/>
     <link href="../../css/login.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../../icons/logo.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         function policy(btn) {
@@ -129,9 +131,9 @@
                                     <img
                                             src="<%
                                                 if (!img.equals(""))
-                                                    out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/" + img);
+                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/" + img);
                                                 else
-                                                    out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/default.jpg");
+                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/default.jpg");
                                             %>"
                                             class="iconos profileImage cursor"
                                             alt="hammer"
