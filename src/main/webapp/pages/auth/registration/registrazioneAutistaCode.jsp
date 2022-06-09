@@ -33,7 +33,6 @@
     String password2 = null;
 
     int count = 0;
-    File nuovoFile;
     File finaleFile = null;
     String recordFileName1 = null;
     String recordFileName2 = null;
@@ -152,17 +151,19 @@
                 }
 
                 if (count == 0) {
-                    nuovoFile = new File(application.getRealPath("/img/propic"), fileName);
                     recordFileName1 = username + "." + extension;
-                    finaleFile = new File(application.getRealPath("/img/propic"), recordFileName1);
+                    finaleFile = new File(application.getRealPath("/img"), recordFileName1);
 
+                    item.write(finaleFile);
                     f.sendImage(finaleFile, "profile", recordFileName1);
+                    finaleFile.delete();
                 } else {
-                    nuovoFile = new File(application.getRealPath("/img/idcard"), fileName);
                     recordFileName2 = username + "." + extension;
-                    finaleFile = new File(application.getRealPath("/img/idcard"), recordFileName2);
+                    finaleFile = new File(application.getRealPath("/img"), recordFileName2);
 
+                    item.write(finaleFile);
                     f.sendImage(finaleFile, "idcard", recordFileName2);
+                    finaleFile.delete();
                 }
                 count++;
             }
