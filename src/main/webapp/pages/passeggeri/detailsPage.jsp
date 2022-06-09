@@ -23,6 +23,13 @@
     String sql = "";
     ResultSet rs = null;
 
+    sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
+    rs = stmt.executeQuery(sql);
+
+    if (rs.next()) {
+        img = rs.getString("img");
+    }
+
     sql = "SELECT COUNT(*) AS num FROM prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio WHERE v.completato='y' AND p.idUtente IN (SELECT idUtente FROM utenti WHERE username='" + session.getAttribute("username") + "')";
     rs = stmt.executeQuery(sql);
 
