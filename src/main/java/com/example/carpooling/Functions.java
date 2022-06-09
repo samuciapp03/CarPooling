@@ -1,5 +1,14 @@
 package com.example.carpooling;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.*;
@@ -126,7 +135,24 @@ public class Functions {
         format = format + " " + y;
         return format;
     }
-}
 
+    public void sendImage(File f, String folder, String nameImg) {
+        HttpPost post = new HttpPost("http://gigachungus.duckdns.org:8080/images/CarPooling/" + folder);
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        builder.addBinaryBody("profileImg", f, ContentType.DEFAULT_BINARY, nameImg);
+        builder.addTextBody("nameImg", nameImg, ContentType.DEFAULT_BINARY);
+
+        HttpEntity entity = builder.build();
+        post.setEntity(entity);
+        CloseableHttpClient client = HttpClients.createDefault();
+        try {
+            HttpResponse response = client.execute(post);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}
 
 

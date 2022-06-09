@@ -12,28 +12,28 @@
 
 
 <%
-  if (!session.getAttribute("ruolo").equals("a")) {
-    response.sendRedirect("index.jsp");
-    return;
-  }
+    if (!session.getAttribute("ruolo").equals("a")) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
 
-  Functions f = new Functions();
+    Functions f = new Functions();
 
-  String parameter = request.getParameter("id");
+    String parameter = request.getParameter("id");
 
-  ResultSet rs = null;
+    ResultSet rs = null;
 
-  String sql = "SELECT * FROM viaggi v INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile WHERE a.idAutomobile=" + parameter + " AND v.completato='n'";
-  rs = stmt.executeQuery(sql);
+    String sql = "SELECT * FROM viaggi v INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile WHERE a.idAutomobile=" + parameter + " AND v.completato='n'";
+    rs = stmt.executeQuery(sql);
 
-  if (rs.next()) {
-    response.sendRedirect("detailsPage.jsp");
-    return;
-  }
+    if (rs.next()) {
+        response.sendRedirect("detailsPage.jsp");
+        return;
+    }
 
-  sql = "UPDATE automobili SET eliminata='y' WHERE idAutomobile = " + parameter;
-  prprstmt = cn.prepareStatement(sql);
-  int row = prprstmt.executeUpdate();
+    sql = "UPDATE automobili SET eliminata='y' WHERE idAutomobile = " + parameter;
+    prprstmt = cn.prepareStatement(sql);
+    int row = prprstmt.executeUpdate();
 
-  response.sendRedirect("./detailsPage.jsp");
+    response.sendRedirect("./detailsPage.jsp");
 %>
