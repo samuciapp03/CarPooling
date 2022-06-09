@@ -25,6 +25,7 @@
 
     <link rel="stylesheet" href="../../../css/style.css"/>
     <link rel="stylesheet" href="../../../css/login.css"/>
+    <link rel="shortcut icon" href="../../../icons/logo.png">
 
     <title>Car Pooling - Confirm Code</title>
 </head>

@@ -47,6 +47,8 @@
 
     <link href="../../css/style.css" rel="stylesheet"/>
     <link href="../../css/login.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="../../icons/logo.png">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         function policy(btn) {
