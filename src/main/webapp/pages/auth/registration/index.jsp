@@ -60,7 +60,7 @@
 <div class="bg-image">
     <div class="overflow-auto">
         <div class="container">
-            <div class="row gy-5">
+            <div class="row">
                 <div class="col-sm container d-flex justify-content-center height">
                     <div class="wrapper fadeInDown">
                         <div class="formContent">

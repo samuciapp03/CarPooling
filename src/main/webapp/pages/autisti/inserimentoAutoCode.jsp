@@ -28,7 +28,6 @@
     String targa = null;
     String annoImm = null;
 
-    File nuovoFile;
     File finaleFile = null;
     String recordFileName = null;
 
@@ -103,11 +102,12 @@
                     fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
                 }
 
-                nuovoFile = new File(application.getRealPath("/img/cars"), fileName);
                 recordFileName = session.getAttribute("username") + String.valueOf(num) + "." + extension;
-                finaleFile = new File(application.getRealPath("/img/cars"), recordFileName);
+                finaleFile = new File(application.getRealPath("/img"), recordFileName);
 
+                item.write(finaleFile);
                 f.sendImage(finaleFile, "car", recordFileName);
+                finaleFile.delete();
             }
         }
 

@@ -28,7 +28,6 @@
     String password1 = null;
     String password2 = null;
 
-    File nuovoFile;
     File finaleFile = null;
     String recordFileName = null;
 
@@ -128,11 +127,12 @@
                     fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
                 }
 
-                nuovoFile = new File(application.getRealPath("/img/propic"), fileName);
                 recordFileName = username + "." + extension;
-                finaleFile = new File(application.getRealPath("/img/propic"), recordFileName);
+                finaleFile = new File(application.getRealPath("/img"), recordFileName);
 
+                item.write(finaleFile);
                 f.sendImage(finaleFile, "profile", recordFileName);
+                finaleFile.delete();
             }
         }
 
