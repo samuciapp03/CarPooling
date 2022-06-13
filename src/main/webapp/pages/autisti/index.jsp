@@ -173,6 +173,10 @@
                                 prprstmt = cn.prepareStatement(sql);
                                 int row = prprstmt.executeUpdate();
 
+                                sql = "UPDATE prenotazioni p INNER JOIN viaggi v ON p.idViaggio=v.idViaggio SET p.stato='u' WHERE p.stato='y' AND v.completato='y'";
+                                prprstmt = cn.prepareStatement(sql);
+                                row = prprstmt.executeUpdate();
+
                                 sql = "SELECT * FROM viaggi v INNER JOIN automobili a ON v.idAutomobile = a.idAutomobile  WHERE a.idUtente = " + id + " AND v.completato='n' ORDER BY v.dataInizio ASC";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {

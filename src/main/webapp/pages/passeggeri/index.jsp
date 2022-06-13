@@ -325,7 +325,7 @@
                         </h1>
                         <div class="cont overflow-auto home">
                             <%
-                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE p.idUtente = " + id + " AND p.stato='r' ORDER BY v.dataInizio DESC LIMIT 5";
+                                sql = "SELECT * FROM ((prenotazioni p INNER JOIN viaggi v ON v.idViaggio = p.idViaggio) INNER JOIN automobili a ON v.idAutomobile=a.idAutomobile) INNER JOIN utenti u ON a.idUtente=u.idUtente WHERE p.idUtente = " + id + " AND (p.stato='r' OR p.stato='u') ORDER BY v.dataInizio DESC LIMIT 5";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">You did no trips</div>");
