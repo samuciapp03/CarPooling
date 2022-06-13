@@ -134,16 +134,15 @@
             <div class="col-lg d-flex justify-content-center align-items-center">
                 <img
                         src="<%
-                            if (!img.equals(""))
-                                //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/" + img);
-                                out.write("../../img/propic/" + img);
-                            else
-                                //out.write("http://gigachungus.duckdns.org/images/CarPooling/profile/default.jpg");
-                                out.write("../../img/default.jpeg");
+                                if (!img.equals(""))
+                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/" + img);
+                                else
+                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/default.jpg");
                             %>"
-                        class="iconos profileImage cursor"
-                        style="width: 100px; height: 100px"
+                        class="iconos cursor"
+                        style="width: 230px; height: 230px; border-radius: 115px;"
                         alt="hammer"
+                        onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ', '_blank').focus();"
                 />
             </div>
             <div class="col-lg-6 d-flex justify-content-center">
@@ -157,108 +156,86 @@
                             >
                                 Your personal details
                             </h1>
-                            <text
-                                    type="text"
-                                    id="photo"
-                                    class="form-control fadeIn second inputStyle"
-                                    name="photo"
-                            >Melzi Marco
-                            </text>
-                            <br>
-
                             <%
                                 sql = "SELECT * FROM utenti WHERE username='" + session.getAttribute("username") + "'";
                                 rs = stmt.executeQuery(sql);
                                 if (!rs.next()) {
                                     out.write("<div class=\"container d-flex justify-content-center\">Personal information missing</div>");
                                 } else {
-                            %>
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th scope="col" style="text-align: center">Field</th>
-                                    <th scope="col" style="text-align: center">Your detail</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <%
                                     rs.beforeFirst();
                                     while (rs.next()) {
-                                %>
-                                <tr>
-                                    <th style="text-align: center">Username
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("username")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Name and Surname
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("nome") + " " + rs.getString("cognome")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Date of birth
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=f.renderDate(rs.getString("dataNascita"))%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Email
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("email")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Telephone
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=rs.getString("tel")%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Number of trips you took part of
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center"><%=numViaggi%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: center">Avarage grade recieved
-                                    </th>
-                                    <td scope="row"
-                                        class="d-flex justify-content-center"
-                                        style="text-align: center">
-                                        <%
-                                            for (int i = 0; i < 5; i++) {
-                                                if (i < media && i + 1 > media) {
-                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
-                                                } else if (i < media) {
-                                                    out.write("<span class=\"fa fa-star fa-large checked\"></span>");
-                                                } else if (i > media) {
-                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
-                                                } else if (i == media) {
-                                                    out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
-                                                }
-                                            }
-                                        %>
-
-                                    </td>
-                                </tr>
-                                <% }
-                                }%>
-                                </tbody>
-                            </table>
+                            %>
+                            <label class="form-check-label fadeIn second" style="color: white">
+                                Username
+                            </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=rs.getString("username")%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Surname and Name
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=rs.getString("cognome") + " " + rs.getString("nome")%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Date of birth
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=f.renderDate(rs.getString("dataNascita"))%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Email
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=rs.getString("email")%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Telephone
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=rs.getString("tel")%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Number of trips
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%=numViaggi%>
+                            </text>
+                            <br><label class="form-check-label fadeIn second" style="color: white">
+                            Average of review
+                        </label><br>
+                            <text
+                                    type="text"
+                                    class="form-control inputStyle fadeIn second"
+                            ><%
+                                for (int i = 0; i < 5; i++) {
+                                    if (i < media && i + 1 > media) {
+                                        out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>\n<span class=\"fa fa-star fa-large split\"></span>\n");
+                                    } else if (i < media) {
+                                        out.write("<span class=\"fa fa-star fa-large checked\"></span>");
+                                    } else if (i > media) {
+                                        out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
+                                    } else if (i == media) {
+                                        out.write("<span class=\"fa fa-star fa-large nonchecked\"></span>");
+                                    }
+                                }
+                            %>
+                            </text>
+                            <br>
+                            <% }
+                            }%>
                             <br/>
                         </div>
                     </div>

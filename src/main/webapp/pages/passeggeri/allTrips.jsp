@@ -275,6 +275,7 @@
                                 class="close"
                                 data-dismiss="modal"
                                 aria-label="Close"
+                                onclick="document.getElementById('modalBodyAut').innerText = 'Loading...'"
                         >
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -287,6 +288,7 @@
                                 type="button"
                                 class="btn btn-secondary"
                                 data-dismiss="modal"
+                                onclick="document.getElementById('modalBodyAut').innerText = 'Loading...'"
                         >
                             Close
                         </button>

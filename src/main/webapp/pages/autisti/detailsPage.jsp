@@ -83,7 +83,7 @@
             <br>
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
-                    <a class="navbar-brand" href="#">Car Pooling</a>
+                    <a class="navbar-brand" href="./">Car Pooling</a>
                     <button
                             class="navbar-toggler"
                             type="button"
