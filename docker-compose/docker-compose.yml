@@ -1,0 +1,17 @@
+version: "1.0"
+name: carpooling
+services:
+  web:
+    build: web/.
+    ports:
+      - "80:8080"
+  database:
+    build: database/.
+    ports:
+      - "3306:3306"
+  api:
+    build: api/.
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./api/nodeProject:/project
