@@ -5,10 +5,12 @@ If a user would like to participate in a trip, he can search for it by entering 
 
 ## Installation
 
-Use the docker compose tool to start the program
+Install the node modules that are required then use the docker compose tool to start the program
 
 ```bash
-cd docker-compose
+cd docker-compose/api
+npm install
+cd ../
 docker compose up -d
 ```
 
@@ -22,7 +24,7 @@ Ciappesoni Samuel - Melzi Marco
 
 - Java - JSP
 - HTML - CSS - Bootstrap
-- Linguaggio SQL
+- SQL
 - NodeJS - Javascript
 - Docker
 - Git - Github
