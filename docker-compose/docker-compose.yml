@@ -8,7 +8,7 @@ services:
     command: >
       bash -c "catalina.sh run"
     volumes:
-      - ./CarPooling-1.0-final.war:/usr/local/tomcat/webapps/ROOT.war
+      - ./CarPooling-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
     depends_on:
       - database
       - api
