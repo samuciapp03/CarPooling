@@ -7,7 +7,7 @@ If a user would like to participate in a trip, he can search for it by entering 
 
 ## Installation
 
-Install the node modules that are required then use the docker compose tool to start the program
+Use the docker compose tool to start the program
 
 ```bash
 cd docker-compose
