@@ -140,7 +140,7 @@ public class Functions {
     }
 
     public void sendImage(File f, String folder, String nameImg) {
-        HttpPost post = new HttpPost("http://api:8080/images/CarPooling/" + folder);
+        HttpPost post = new HttpPost("http://carpooling.samuelciappesoni.it:8080/images/CarPooling/" + folder);
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);

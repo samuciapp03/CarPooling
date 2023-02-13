@@ -126,9 +126,9 @@
                                     <img
                                             src="<%
                                                 if (!img.equals(""))
-                                                    out.write("http://api:8080/images/CarPooling/profile/" + img);
+                                                    out.write("http://carpooling.samuelciappesoni.it:8080/images/CarPooling/profile/" + img);
                                                 else
-                                                    out.write("http://api:8080/images/CarPooling/profile/default.jpg");
+                                                    out.write("http://carpooling.samuelciappesoni.it:8080/images/CarPooling/profile/default.jpg");
                                             %>"
                                             class="iconos profileImage cursor"
                                             alt="hammer"

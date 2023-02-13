@@ -2,7 +2,7 @@ version: "1.0"
 name: carpooling
 services:
   web:
-    image: tomcat:8.0
+    image: tomcat:9.0.71-jre8-temurin-focal
     ports:
       - "80:8080"
     command: catalina.sh run
