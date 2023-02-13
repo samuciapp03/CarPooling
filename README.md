@@ -20,7 +20,7 @@ Then access to the [localhost](http://localhost) on the port 80 as specified in 
 
 Ciappesoni Samuel - Melzi Marco
 
-## Tecnologies
+## Technologies
 
 - Java - JSP
 - HTML - CSS - Bootstrap
