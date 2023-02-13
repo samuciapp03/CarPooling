@@ -20,6 +20,9 @@ services:
       - ./database/data:/var/lib/mysql
   api:
     image: node
-    command: node /project/index.js
+    command: 
+     - cd project/
+     - npm install
+     - node index.js
     volumes:
       - ./api:/project

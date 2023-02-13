@@ -8,9 +8,7 @@ If a user would like to participate in a trip, he can search for it by entering 
 Install the node modules that are required then use the docker compose tool to start the program
 
 ```bash
-cd docker-compose/api
-npm install
-cd ../
+cd docker-compose
 docker compose up -d
 ```
 
