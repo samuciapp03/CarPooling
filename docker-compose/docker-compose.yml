@@ -5,7 +5,8 @@ services:
     image: tomcat:9.0.71-jre8-temurin-focal
     ports:
       - "80:8080"
-    command: catalina.sh run
+    command: >
+      bash -c "catalina.sh run"
     volumes:
       - ../target/CarPooling-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/ROOT.war
     depends_on:
@@ -20,9 +21,8 @@ services:
       - ./database/data:/var/lib/mysql
   api:
     image: node
-    command: 
-     - cd project/
-     - npm install
-     - node index.js
     volumes:
       - ./api:/project
+    working_dir: /project
+    command: >
+      bash -c "npm install && node index.js"
