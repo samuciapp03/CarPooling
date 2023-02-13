@@ -3,18 +3,21 @@ package com.example.carpooling;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.ContentType;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import javax.mail.*;
 import javax.mail.internet.*;
-import java.io.*;
-import java.nio.charset.*;
-import java.security.*;
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
+import java.util.Random;
 
 public class Functions {
 
@@ -40,7 +43,7 @@ public class Functions {
     }
 
     public void send(String to, String sub, String msg) {
-        //Get properties object
+        // Get properties object
         Properties props = System.getProperties();
         // Set manual Properties
         props.put("mail.smtp.auth", "true");
@@ -50,7 +53,7 @@ public class Functions {
 
         final String from = "project.chungus@outlook.it", passwd = "Gigachungus";
 
-        //get Session
+        // get Session
         Session session = Session.getInstance(props,
                 new Authenticator() {
                     @Override
@@ -66,7 +69,7 @@ public class Functions {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             message.setSubject(sub);
             message.setText(msg);
-            //send messagex
+            // send messagex
             Transport.send(message);
 
             System.out.println("Message sent");
@@ -137,7 +140,7 @@ public class Functions {
     }
 
     public void sendImage(File f, String folder, String nameImg) {
-        HttpPost post = new HttpPost("http://gigachungus.duckdns.org:8080/images/CarPooling/" + folder);
+        HttpPost post = new HttpPost("http://api:8080/images/CarPooling/" + folder);
 
         MultipartEntityBuilder builder = MultipartEntityBuilder.create();
         builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
@@ -154,5 +157,3 @@ public class Functions {
         }
     }
 }
-
-

@@ -105,9 +105,9 @@
                                     <img
                                             src="<%
                                                 if (!img.equals(""))
-                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/" + img);
+                                                    out.write("http://api:8080/images/CarPooling/profile/" + img);
                                                 else
-                                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/default.jpg");
+                                                    out.write("http://api:8080/images/CarPooling/profile/default.jpg");
                                             %>"
                                             class="iconos profileImage cursor"
                                             alt="hammer"
@@ -135,9 +135,9 @@
                 <img
                         src="<%
                                 if (!img.equals(""))
-                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/" + img);
+                                    out.write("http://api:8080/images/CarPooling/profile/" + img);
                                 else
-                                    out.write("http://gigachungus.duckdns.org:8080/images/CarPooling/profile/default.jpg");
+                                    out.write("http://api:8080/images/CarPooling/profile/default.jpg");
                             %>"
                         class="iconos cursor"
                         style="width: 230px; height: 230px; border-radius: 115px;"

@@ -9,7 +9,7 @@
 <%@page import="java.sql.*" %>
 <%
     Class.forName("com.mysql.cj.jdbc.Driver");
-    Connection cn = DriverManager.getConnection("jdbc:mysql://gigachungus.duckdns.org/carpooling", "app", "supremaziauomo");
+    Connection cn = DriverManager.getConnection("jdbc:mysql://database/carpooling", "app", "supremaziauomo");
     Statement stmt = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
     PreparedStatement prprstmt;
 %>
