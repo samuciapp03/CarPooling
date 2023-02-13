@@ -21,6 +21,8 @@ services:
       - ./database/data:/var/lib/mysql
   api:
     image: node
+    ports:
+      - "8080:8080"
     volumes:
       - ./api:/project
     working_dir: /project
